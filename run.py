@@ -1,3 +1,6 @@
+"""
+Import the correct packages for the code below.
+"""
 import gspread
 from google.oauth2.service_account import Credentials
 
@@ -29,7 +32,6 @@ def get_sales_data():
         if validate_data(sales_data):
             print('Data is valid!')
             break
-    
     return sales_data
 
 
@@ -43,12 +45,11 @@ def validate_data(values):
         [int(value) for value in values]
         if len(values) != 6:
             raise ValueError(
-            f"Exactly 6 values required, you provided {len(values)}"
+                f"Exactly 6 values required, you provided {len(values)}"
             )
     except ValueError as e:
         print(f"Invalid data: {e}, please try again.\n")
         return False
-    
     return True
 
 
@@ -74,7 +75,6 @@ def calculate_surplus_data(sales_row):
     print('Calculating surplus data...\n')
     stock = SHEET.worksheet('stock').get_all_values()
     stock_row = stock[-1]
-    
     surplus_data = []
     for stock, sales in zip(stock_row, sales_row):
         surplus = int(stock) - sales
@@ -95,6 +95,7 @@ def get_last_5_entries_sales():
     for ind in range(1, 7):
         column = sales.col_values(ind)
         columns.append(column[-5:])
+
     return columns
 
 
@@ -113,6 +114,7 @@ def calculate_stock_data(data):
 
     return new_stock_data
 
+
 def main():
     """
     Run all program functions
@@ -129,4 +131,3 @@ def main():
 
 print('Welcome to Love Sandwiches Data Automation')
 main()
-
